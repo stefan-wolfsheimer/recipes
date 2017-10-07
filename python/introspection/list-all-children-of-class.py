@@ -36,8 +36,7 @@ def print_all_classes_of(klass, module):
     print "----------------------------------------"
     issub = lambda k: inspect.isclass(k) and issubclass(k, klass)
     for subklass in inspect.getmembers(module, issub):
-        if issubclass(subklass[1], klass):
-            print subklass[0]
+        print subklass[0]
     print
     pass
 
