@@ -44,9 +44,47 @@ public:
   int a;
 };
 
+class B
+{
+public:
+  B()
+  {
+    std::cout << "B::B()" << std::endl;
+  }
+
+  virtual ~B()
+  {
+    std::cout << "B::~B()" << std::endl;
+  }
+
+  void * operator new(size_t s)
+  {
+    std::cout << "new B" << std::endl;
+    return new char[s];
+  }
+
+  void * operator new(size_t s, MemoryManagement & mm)
+  {
+    std::cout << "new B" << std::endl;
+    return mm.malloc(s);
+  }
+
+  void operator delete(void * p, size_t s)
+  {
+    std::cout << "delete B" << std::endl;
+    delete (char*)p;
+  }
+};
+
 int main(int argc, const char ** argv)
 {
   MemoryManagement mm;
   A * a = new(mm) A(1);
   mm.free(a);
+
+  B * b = new B();
+  delete b;
+
+  b = new(mm) B();
+  delete b;
 }
