@@ -1,3 +1,4 @@
 *~
 c++/memory/placementSyntax
 c++/concurrency/messageQueue
+c++/concurrency/future
