@@ -17,7 +17,7 @@ void consumer()
   while(run)
   {
     std::unique_lock<std::mutex> lock(queueMutex);
-    conditionVariable.wait(lock);
+    conditionVariable.wait(lock); // release lock and relock on wakeup
     while(!messageQueue.empty())
     {
       auto message = messageQueue.front();
