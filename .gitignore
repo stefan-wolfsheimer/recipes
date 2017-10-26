@@ -3,3 +3,4 @@ c++/memory/placementSyntax
 c++/concurrency/messageQueue
 c++/concurrency/future
 c++/creation/singleton
+c++/creation/factory
