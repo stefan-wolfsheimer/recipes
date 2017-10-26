@@ -6,27 +6,42 @@
 class Vehicle
 {
 public:
-  Vehicle(const std::string & _serial);
+  Vehicle(const std::string & _serial)
+    : serial(_serial)
+  {}
   virtual ~Vehicle() {}
 
-  std::string getSerial() const;
+  std::string getSerial() const
+  {
+    return serial;
+  }
+
   virtual int getWheels() const = 0;
   virtual std::string getType() const = 0;
 
-  static std::shared_ptr<Vehicle> create(const std::string & type,
-                                         const std::string & serial);
 private:
   std::string serial;
 };
 
+class VehicleFactory
+{
+public:
+  VehicleFactory() : counter(0) {}
+  std::shared_ptr<Vehicle> create(const std::string & type);
+private:
+  std::string nextSerial(const std::string & prefix);
+  int counter;
+};
+
 int main(int argc, const char ** argv)
 {
+  VehicleFactory factory;
   std::vector<std::shared_ptr<Vehicle> > vehicles
   {
-    Vehicle::create("Car","NL-SU-73"),
-    Vehicle::create("Car","NL-SU-74"),
-    Vehicle::create("Bicycle","NL-BI-84"),
-    Vehicle::create("Bus","NL-PU-91")
+    factory.create("Car"),
+    factory.create("Car"),
+    factory.create("Bicycle"),
+    factory.create("Bus")
   };
   for(auto v : vehicles)
   {
@@ -87,30 +102,24 @@ public:
   }
 };
 
-Vehicle::Vehicle(const std::string & _serial)
-  : serial(_serial)
-{}
-
-std::string Vehicle::getSerial() const
+std::string VehicleFactory::nextSerial(const std::string & prefix)
 {
-  return serial;
+  return prefix + std::to_string(++counter);
 }
 
-
-std::shared_ptr<Vehicle> Vehicle::create(const std::string & type,
-                                         const std::string & serial)
+std::shared_ptr<Vehicle> VehicleFactory::create(const std::string & type)
 {
   if(type == "Car")
   {
-    return std::shared_ptr<Vehicle>(new Car(serial));
+    return std::shared_ptr<Vehicle>(new Car(nextSerial("C")));
   }
   if(type == "Bicycle")
   {
-    return std::shared_ptr<Vehicle>(new Bicycle(serial));
+    return std::shared_ptr<Vehicle>(new Bicycle(nextSerial("Bi")));
   }
   if(type == "Bus")
   {
-    return std::shared_ptr<Vehicle>(new Bus(serial));
+    return std::shared_ptr<Vehicle>(new Bus(nextSerial("B")));
   }
   return std::shared_ptr<Vehicle>();
 }
