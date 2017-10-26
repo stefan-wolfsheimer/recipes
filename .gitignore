@@ -1,5 +1,7 @@
 *~
 c++/memory/placementSyntax
+c++/behavioral/dynamicDecorator
+c++/behavioral/mixinDecorator
 c++/concurrency/messageQueue
 c++/concurrency/future
 c++/concurrency/observer
