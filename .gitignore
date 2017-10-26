@@ -2,5 +2,7 @@
 c++/memory/placementSyntax
 c++/concurrency/messageQueue
 c++/concurrency/future
+c++/concurrency/observer
 c++/creation/singleton
 c++/creation/factory
+
