@@ -2,6 +2,7 @@
 c++/memory/placementSyntax
 c++/structural/dynamicDecorator
 c++/structural/mixinDecorator
+c++/structural/composite
 c++/concurrency/messageQueue
 c++/concurrency/future
 c++/concurrency/observer
